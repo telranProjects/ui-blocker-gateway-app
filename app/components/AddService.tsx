@@ -4,7 +4,7 @@ import FetchServerData from './FetchServerData';
 import { Service } from '../interfaces/Service';
 import ServicesOutputTable from './ServicesOutputTable';
 
-const GetAllServices: React.FC = () => {
+const AddService: React.FC = () => {
     const [services, setServices] = useState<Service[]>([]);
 
     useEffect(() => {
@@ -19,4 +19,4 @@ const GetAllServices: React.FC = () => {
     return <ServicesOutputTable services={services} />;
 }
 
-export default GetAllServices;
+export default AddService;
