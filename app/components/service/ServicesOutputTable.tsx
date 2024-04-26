@@ -1,5 +1,5 @@
 import React from "react";
-import { Service } from "../interfaces/Service";
+import { Service } from "../../interfaces/Service";
 
 interface Props {
     services: Service[];

@@ -1,21 +1,28 @@
 'use server';
 
+interface Props {
+    auth64: string;
+    requestMethod: string;
+    uri: string
+}
+
 let response: Response;
 
-const FetchServerData = async () => {
+const FetchServerData = async ({auth64, requestMethod, uri}: Props) => {
         
         try {
             const myHeaders: HeadersInit = new Headers();
-            myHeaders.append("Authorization", "Basic c0BzOnNzc3M=");
+            // myHeaders.append("Authorization", `Basic c0BzOnNzc3M=`);
+            myHeaders.append("Authorization", `Basic ${auth64}`);
 
             const requestOptions: RequestInit = {
-                method: "GET",
+                method: requestMethod,
                 headers: myHeaders,
                 redirect: "follow",
                 cache: 'no-store'
             };
 
-            response = await fetch('http://localhost:8080/service/get_all', requestOptions);
+            response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
             if (!response.ok) {
                 throw new Error('Failed to fetch services');
             }
@@ -28,3 +35,6 @@ const FetchServerData = async () => {
 
 
 export default FetchServerData
+
+// method: "GET",
+// service/get_all

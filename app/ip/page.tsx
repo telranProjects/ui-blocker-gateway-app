@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import GetAllIp from '../components/GetAllIps';
+import GetAllIp from '../components/ip/GetAllIps';
 
 const IPsPage = () => {
   return (

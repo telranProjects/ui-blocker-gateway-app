@@ -1,10 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import FetchServerData from './FetchServerData';
-import { Service } from '../interfaces/Service';
+import FetchServerData from '../FetchServerData';
+import { Service } from '../../interfaces/Service';
 import ServicesOutputTable from './ServicesOutputTable';
 
-const AddService: React.FC = () => {
+const DeleteService: React.FC = () => {
     const [services, setServices] = useState<Service[]>([]);
 
     useEffect(() => {
@@ -19,4 +19,4 @@ const AddService: React.FC = () => {
     return <ServicesOutputTable services={services} />;
 }
 
-export default AddService;
+export default DeleteService;
