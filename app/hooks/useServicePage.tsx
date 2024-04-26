@@ -9,6 +9,7 @@ const useServicePage = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [auth64, setAuth64] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value);
@@ -18,20 +19,30 @@ const useServicePage = () => {
     setPassword(event.target.value);
   };
 
+  const handleError = (errorMessage: string | null) => {
+    setError(errorMessage);
+  };
+
   const handleAddService = () => {
-    setAuth64(Credentials64({ login, password }));
+    const auth = Credentials64({ login, password });
+    setAuth64(auth);
     setAddServices(true);
+    setError(null); // Clear any previous errors
   };
-
+  
   const handleShowServices = () => {
-    setAuth64(Credentials64({ login, password }));
+    const auth = Credentials64({ login, password });
+    setAuth64(auth);
     setShowServices(true);
+    setError(null); // Clear any previous errors
   };
-
+  
   const handleDeleteService = () => {
-    setAuth64(Credentials64({ login, password }));
+    const auth = Credentials64({ login, password });
+    setAuth64(auth);
     setDeleteService(true);
-  };
+    setError(null); // Clear any previous errors
+  };  
 
   return {
     addService,
@@ -40,11 +51,13 @@ const useServicePage = () => {
     login,
     password,
     auth64,
+    error,
     handleLoginChange,
     handlePasswordChange,
     handleAddService,
     handleShowServices,
-    handleDeleteService
+    handleDeleteService,
+    handleError
   };
 };
 

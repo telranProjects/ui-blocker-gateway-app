@@ -7,6 +7,7 @@ import DeleteService from '../components/service/DeleteService';
 import LoginPassword from '../components/LoginPassword';
 import Credentials64 from '../components/Credentials64';
 import useServicePage from '../hooks/useServicePage'; // Custom hook for state management
+import { ErrorMessage } from '../components/errorHandler';
 
 const ServicesPage = () => {
   const {
@@ -16,44 +17,70 @@ const ServicesPage = () => {
     login,
     password,
     auth64,
+    error,
     handleLoginChange,
     handlePasswordChange,
     handleAddService,
     handleShowServices,
-    handleDeleteService
+    handleDeleteService,
+    handleError
   } = useServicePage(); // Using the custom hook
 
+  
   return (
     <main>
       <div className="p-5 text-yellow-500">Services Page</div>
 
       <div className='p-5 w-1/4'>
-        <LoginPassword 
-          onLoginChange={handleLoginChange} 
+        <LoginPassword
+          onLoginChange={handleLoginChange}
           onPasswordChange={handlePasswordChange}
         />
       </div>
 
-      <div>
-        <button className='btn btn-success' onClick={handleAddService}>Add Service</button>
-      </div>
-      {addService && <AddService />}
+      {error && <ErrorMessage message={error} />}
 
-      <div>
-        <button className='btn btn-primary' onClick={handleShowServices}>
+{/* add service part */}
+      <div className="mockup-window border border-base-300">
+        <button className='btn btn-success w-1/4' onClick={handleAddService}>
+          Add Service
+        </button>
+
+        <textarea className="textarea textarea-bordered w-1/4"
+          style={{ height: '16em', whiteSpace: 'pre-line' }}
+          defaultValue={`{
+    "webService": 
+            "web_service_name",
+    "emails": [
+            "e1@e1.com",
+            "e2@e2.com"
+    ]
+}`} ></textarea>
+
+        {addService && <AddService auth64={auth64} />}
+      </div>
+
+{/* get all services part */}
+      <div className="mockup-window border border-base-300">
+        <button className='btn btn-primary w-1/4' onClick={handleShowServices}>
           Get All Services
         </button>
+        {showServices && <GetAllServices auth64={auth64} onError={handleError}/>}
       </div>
-      {showServices && <GetAllServices auth64={auth64} />}
 
-      <div>
-        <button className='btn btn-secondary' onClick={handleDeleteService}>
+{/* delete service part */}
+      <div className="mockup-window border border-base-300">
+        <button className='btn btn-secondary w-1/4' onClick={handleDeleteService}>
           Delete Service
         </button>
-      </div>
-      {deleteService && <DeleteService />}
+        <input type="text" placeholder="Type service name to delete" className="input input-bordered w-1/4" />
 
-      <Link className="hover:text-yellow-300 hover:p-3" href="./">Back to main menu</Link>
+        {deleteService && <DeleteService auth64={auth64} />}
+      </div>
+
+      <div className="p-5 text-yellow-300">
+        <Link className="hover:text-yellow-500 hover:p-3" href="./">Back to main menu</Link>
+      </div>
     </main>
   );
 }

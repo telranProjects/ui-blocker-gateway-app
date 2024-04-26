@@ -3,12 +3,15 @@ import React, { useState, useEffect } from 'react';
 import FetchServerData from '../FetchServerData';
 import { Service } from '../../interfaces/Service';
 import ServicesOutputTable from './ServicesOutputTable';
+import { ErrorMessage } from '../errorHandler';
 
 interface Props {
     auth64: string;
+    onError: (error: string) => void;
 }
 
-const GetAllServices: React.FC<Props> = ({auth64}: Props) => {
+const GetAllServices: React.FC<Props> = ({auth64, onError}: Props) => {
+    const [error, setError] = useState<string | null>(null);
     const [services, setServices] = useState<Service[]>([]);
 
     const requestMethod = "GET";
@@ -16,14 +19,21 @@ const GetAllServices: React.FC<Props> = ({auth64}: Props) => {
 
     useEffect(() => {
         const fetchData = async () => {
+        try{
             const data: Service[] = await FetchServerData({auth64, requestMethod, uri});
             setServices(data);
+   
+        } catch (error: any) {
+            console.error('Error fetching services:', error);
+            setError(error.message);
+            onError(error.message); 
+        }
         } 
 
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return <ServicesOutputTable services={services} />;
+    return  services ? <ServicesOutputTable services={services} /> : null;
 }
 
 export default GetAllServices;

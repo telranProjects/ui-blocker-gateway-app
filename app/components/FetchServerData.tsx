@@ -1,5 +1,7 @@
 'use server';
 
+import { ErrorMessage } from "./errorHandler";
+
 interface Props {
     auth64: string;
     requestMethod: string;
@@ -23,14 +25,24 @@ const FetchServerData = async ({auth64, requestMethod, uri}: Props) => {
             };
 
             response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
+
+            if (response.status === 401) {
+                throw new Error('Unauthorized'); // Throw an error if response status is 401
+            };
+
             if (!response.ok) {
                 throw new Error('Failed to fetch services');
             }
+
+            const jsonData = await response.json();
+            return jsonData;
+
+
         } catch (error) {
             console.error('Error fetching services:', error);
-        }
-
-        return await response.json();
+            throw error;
+           
+        }        
     };  
 
 
