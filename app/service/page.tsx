@@ -1,28 +1,27 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Link from "next/link";
 import GetAllServices from '../components/service/GetAllServices';
 import AddService from '../components/service/AddService';
 import DeleteService from '../components/service/DeleteService';
 import LoginPassword from '../components/LoginPassword';
 import Credentials64 from '../components/Credentials64';
+import useServicePage from '../hooks/useServicePage'; // Custom hook for state management
 
 const ServicesPage = () => {
-  const [addService, setAddServices] = useState(false);
-  const [showServices, setShowServices] = useState(false);
-  const [deleteService, setDeleteService] = useState(false);
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [auth64, setAuth64] = useState('');
-
-    // Event handlers to update login and password
-    const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setLogin(event.target.value);
-    };
-  
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(event.target.value);
-    };
+  const {
+    addService,
+    showServices,
+    deleteService,
+    login,
+    password,
+    auth64,
+    handleLoginChange,
+    handlePasswordChange,
+    handleAddService,
+    handleShowServices,
+    handleDeleteService
+  } = useServicePage(); // Using the custom hook
 
   return (
     <main>
@@ -30,32 +29,33 @@ const ServicesPage = () => {
 
       <div className='p-5 w-1/4'>
         <LoginPassword 
-                  onLoginChange={handleLoginChange} 
-                  onPasswordChange={handlePasswordChange}
+          onLoginChange={handleLoginChange} 
+          onPasswordChange={handlePasswordChange}
         />
       </div>
 
       <div>
-        <button className='btn btn-success' onClick={() => setAddServices(true)}>Add Service</button>
+        <button className='btn btn-success' onClick={handleAddService}>Add Service</button>
       </div>
       {addService && <AddService />}
 
       <div>
-        <button className='btn btn-primary' onClick={() => {
-          setAuth64(Credentials64({login, password})); 
-          setShowServices(true);
-          }}>Get All Services</button>
+        <button className='btn btn-primary' onClick={handleShowServices}>
+          Get All Services
+        </button>
       </div>
       {showServices && <GetAllServices auth64={auth64} />}
 
       <div>
-        <button className='btn btn-secondary' onClick={() => setDeleteService(true)}>Delete Service</button>
+        <button className='btn btn-secondary' onClick={handleDeleteService}>
+          Delete Service
+        </button>
       </div>
       {deleteService && <DeleteService />}
 
       <Link className="hover:text-yellow-300 hover:p-3" href="./">Back to main menu</Link>
     </main>
-  )
+  );
 }
 
-export default ServicesPage
+export default ServicesPage;

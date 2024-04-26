@@ -35,6 +35,3 @@ const FetchServerData = async ({auth64, requestMethod, uri}: Props) => {
 
 
 export default FetchServerData
-
-// method: "GET",
-// service/get_all
