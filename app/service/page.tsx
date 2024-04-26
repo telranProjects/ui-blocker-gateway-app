@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from "next/link";
 import GetAllServices from '../components/service/GetAllServices';
 import AddService from '../components/service/AddService';
@@ -26,6 +26,11 @@ const ServicesPage = () => {
     handleInputTextChange
   } = useServicePage(); // Using the custom hook
 
+  const [deleteInputValue, setDeleteInputValue] = useState('');
+  const handleDeleteInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDeleteInputValue(event.target.value);
+  };
+
   
   return (
     <main>
@@ -45,12 +50,9 @@ const ServicesPage = () => {
         <button className='btn btn-success w-1/4' onClick={handleAddService}>
           Add Service
         </button>
-<InputTextArea onInputTextChange={handleInputTextChange}/>
-        
+<InputTextArea onInputTextChange={handleInputTextChange}/>        
 
-        {addService && <AddService 
-        
-        auth64={auth64} onError={handleError} entity={inputTextArea}/>}
+        {addService && <AddService auth64={auth64} onError={handleError} entity={inputTextArea}/>}
       </div>
 
 {/* get all services part */}
@@ -66,9 +68,10 @@ const ServicesPage = () => {
         <button className='btn btn-secondary w-1/4' onClick={handleDeleteService}>
           Delete Service
         </button>
-        <input type="text" placeholder="Type service name to delete" className="input input-bordered w-1/4" />
+        <input type="text" placeholder="Type service name to delete" className="input input-bordered w-1/4" 
+        value={deleteInputValue} onChange={handleDeleteInputChange}/>
 
-        {deleteService && <DeleteService auth64={auth64} onError={handleError}/>}
+        {deleteService && <DeleteService auth64={auth64} onError={handleError} id={deleteInputValue}/>}
       </div>
 
       <div className="p-5 text-yellow-300">

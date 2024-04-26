@@ -45,7 +45,7 @@ const useServicePage = () => {
   const handleDeleteService = () => {
     const credentials64 = Credentials64({ login, password });
     setAuth64(credentials64);
-    setDeleteService(true);
+    setDeleteService(prev => !prev);
     setError(null); // Clear any previous errors
   };  
 

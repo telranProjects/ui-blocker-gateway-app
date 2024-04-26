@@ -13,7 +13,7 @@ const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
         
         try {
             const myHeaders: HeadersInit = new Headers();
-            myHeaders.append("Authorization", `Basic ${auth64}`);
+            myHeaders.append("Authorization", `Basic ${auth64}`);            
 
             const requestOptions: RequestInit = {
                 method: requestMethod,
@@ -21,12 +21,16 @@ const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
                 redirect: "follow",
                 cache: 'no-store'                
             };
+            
             if(entity) {
                 myHeaders.append("Content-Type", "application/json");
                 requestOptions.body = entity;
             }
 
             response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
+
+            console.log("====================RESPONSE===============================")
+            console.log(response);
 
             if (response.status === 401) {
                 throw new Error('Unauthorized'); // Throw an error if response status is 401
