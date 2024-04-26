@@ -5,25 +5,25 @@ import GetAllServices from '../components/service/GetAllServices';
 import AddService from '../components/service/AddService';
 import DeleteService from '../components/service/DeleteService';
 import LoginPassword from '../components/LoginPassword';
-import Credentials64 from '../components/Credentials64';
 import useServicePage from '../hooks/useServicePage'; // Custom hook for state management
 import { ErrorMessage } from '../components/errorHandler';
+import InputTextArea from '../components/service/InputTextArea';
 
 const ServicesPage = () => {
   const {
     addService,
     showServices,
     deleteService,
-    login,
-    password,
     auth64,
     error,
+    inputTextArea,
     handleLoginChange,
     handlePasswordChange,
     handleAddService,
     handleShowServices,
     handleDeleteService,
-    handleError
+    handleError,
+    handleInputTextChange
   } = useServicePage(); // Using the custom hook
 
   
@@ -45,19 +45,12 @@ const ServicesPage = () => {
         <button className='btn btn-success w-1/4' onClick={handleAddService}>
           Add Service
         </button>
+<InputTextArea onInputTextChange={handleInputTextChange}/>
+        
 
-        <textarea className="textarea textarea-bordered w-1/4"
-          style={{ height: '16em', whiteSpace: 'pre-line' }}
-          defaultValue={`{
-    "webService": 
-            "web_service_name",
-    "emails": [
-            "e1@e1.com",
-            "e2@e2.com"
-    ]
-}`} ></textarea>
-
-        {addService && <AddService auth64={auth64} />}
+        {addService && <AddService 
+        
+        auth64={auth64} onError={handleError} entity={inputTextArea}/>}
       </div>
 
 {/* get all services part */}
@@ -75,7 +68,7 @@ const ServicesPage = () => {
         </button>
         <input type="text" placeholder="Type service name to delete" className="input input-bordered w-1/4" />
 
-        {deleteService && <DeleteService auth64={auth64} />}
+        {deleteService && <DeleteService auth64={auth64} onError={handleError}/>}
       </div>
 
       <div className="p-5 text-yellow-300">

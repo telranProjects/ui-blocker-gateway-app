@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface LoginPasswordProps {
+interface Props {
     onLoginChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onPasswordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const LoginPassword: React.FC<LoginPasswordProps> = ({onLoginChange, onPasswordChange}: LoginPasswordProps) => {
+const LoginPassword: React.FC<Props> = ({onLoginChange, onPasswordChange}: Props) => {
     return (
         <>
             <label className="input input-bordered flex items-center gap-2">

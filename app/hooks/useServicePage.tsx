@@ -10,6 +10,7 @@ const useServicePage = () => {
   const [password, setPassword] = useState('');
   const [auth64, setAuth64] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [inputTextArea, setInputTextArea] = useState('');
 
   const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value);
@@ -19,27 +20,31 @@ const useServicePage = () => {
     setPassword(event.target.value);
   };
 
+  const handleInputTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputTextArea(event.target.value);
+  }
+
   const handleError = (errorMessage: string | null) => {
     setError(errorMessage);
   };
 
   const handleAddService = () => {
-    const auth = Credentials64({ login, password });
-    setAuth64(auth);
-    setAddServices(true);
+    const credentials64 = Credentials64({ login, password });
+    setAuth64(credentials64);
+    setAddServices(prev => !prev);
     setError(null); // Clear any previous errors
   };
   
   const handleShowServices = () => {
-    const auth = Credentials64({ login, password });
-    setAuth64(auth);
-    setShowServices(true);
+    const credentials64 = Credentials64({ login, password });
+    setAuth64(credentials64);    
+    setShowServices(prev => !prev);
     setError(null); // Clear any previous errors
   };
   
   const handleDeleteService = () => {
-    const auth = Credentials64({ login, password });
-    setAuth64(auth);
+    const credentials64 = Credentials64({ login, password });
+    setAuth64(credentials64);
     setDeleteService(true);
     setError(null); // Clear any previous errors
   };  
@@ -52,12 +57,14 @@ const useServicePage = () => {
     password,
     auth64,
     error,
+    inputTextArea,
     handleLoginChange,
     handlePasswordChange,
     handleAddService,
     handleShowServices,
     handleDeleteService,
-    handleError
+    handleError,
+    handleInputTextChange
   };
 };
 

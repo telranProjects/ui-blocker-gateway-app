@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import FetchServerData from '../FetchServerData';
 import { Service } from '../../interfaces/Service';
 import ServicesOutputTable from './ServicesOutputTable';
-import { ErrorMessage } from '../errorHandler';
 
 interface Props {
     auth64: string;
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const GetAllServices: React.FC<Props> = ({auth64, onError}: Props) => {
-    const [error, setError] = useState<string | null>(null);
     const [services, setServices] = useState<Service[]>([]);
 
     const requestMethod = "GET";
@@ -25,7 +23,6 @@ const GetAllServices: React.FC<Props> = ({auth64, onError}: Props) => {
    
         } catch (error: any) {
             console.error('Error fetching services:', error);
-            setError(error.message);
             onError(error.message); 
         }
         } 

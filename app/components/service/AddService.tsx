@@ -4,19 +4,34 @@ import FetchServerData from '../FetchServerData';
 import { Service } from '../../interfaces/Service';
 import ServicesOutputTable from './ServicesOutputTable';
 
-const AddService: React.FC = () => {
+interface Props {
+    auth64: string;
+    onError: (error: string) => void;
+    entity: string;
+}
+
+const AddService: React.FC<Props> = ({auth64, onError, entity}: Props) => {
     const [services, setServices] = useState<Service[]>([]);
+
+    const requestMethod = "POST";
+    const uri = "bo/service";
 
     useEffect(() => {
         const fetchData = async () => {
-            const data: Service[] = await FetchServerData();
+            try{
+            const data: Service[] = await FetchServerData({auth64, requestMethod, uri, entity});
             setServices(data);
-        } 
+        } catch (error: any) {
+            console.error('Error fetching services:', error);
+            onError(error.message); 
+
+        }
+    }
 
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return <ServicesOutputTable services={services} />;
+    return services ? <ServicesOutputTable services={services} /> : null;
 }
 
 export default AddService;

@@ -1,28 +1,30 @@
 'use server';
 
-import { ErrorMessage } from "./errorHandler";
-
 interface Props {
     auth64: string;
     requestMethod: string;
-    uri: string
+    uri: string;
+    entity?: string;
 }
 
 let response: Response;
 
-const FetchServerData = async ({auth64, requestMethod, uri}: Props) => {
+const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
         
         try {
             const myHeaders: HeadersInit = new Headers();
-            // myHeaders.append("Authorization", `Basic c0BzOnNzc3M=`);
             myHeaders.append("Authorization", `Basic ${auth64}`);
 
             const requestOptions: RequestInit = {
                 method: requestMethod,
                 headers: myHeaders,
                 redirect: "follow",
-                cache: 'no-store'
+                cache: 'no-store'                
             };
+            if(entity) {
+                myHeaders.append("Content-Type", "application/json");
+                requestOptions.body = entity;
+            }
 
             response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
 
