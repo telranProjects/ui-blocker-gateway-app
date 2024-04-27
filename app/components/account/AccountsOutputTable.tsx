@@ -19,9 +19,9 @@ const AccountsOutputTable: React.FC<Props> = ({accounts}) => {
                 </thead>
                 <tbody>
                     {accounts && (
-                        <tr>
+                        <tr key={accounts.username}>
                             <td>{accounts.username}</td>
-                            {accounts.roles.map(r => <td>{r}</td>)}
+                            {accounts.roles.map((r, index) => <td key={index}>{r}</td>)}
                         </tr>
                     )}
                 </tbody>
