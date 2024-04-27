@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Link from "next/link";
 import GetAllServices from '../components/service/GetAllServices';
 import AddService from '../components/service/AddService';
@@ -45,7 +45,7 @@ const ServicesPage = () => {
 {/* add Entity part */}
       <div className="mockup-window border border-base-300">
         <button className='btn btn-success w-1/4' onClick={handleAddEntity}>
-          Add S1ervice
+          Add Service
         </button>
 <InputAreaService onInputAreaChange={handleInputAreaChange}/>        
 
@@ -55,7 +55,7 @@ const ServicesPage = () => {
 {/* get all Entities part */}
       <div className="mockup-window border border-base-300">
         <button className='btn btn-primary w-1/4' onClick={handleShowEntities}>
-          Get All S1ervices
+          Get All Services
         </button>
         {showEntities && <GetAllServices auth64={auth64} onError={handleError}/>}
       </div>
@@ -63,7 +63,7 @@ const ServicesPage = () => {
 {/* delete Entity part */}
       <div className="mockup-window border border-base-300">
         <button className='btn btn-secondary w-1/4' onClick={handleDeleteEntity}>
-          Delete S1ervice
+          Delete Service
         </button>
     <InputString onInputStringChange={handleInputStringChange}/>
 

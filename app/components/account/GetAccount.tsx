@@ -1,30 +1,36 @@
 'use client';
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import FetchServerData from '../FetchServerData';
+import { Account } from '../../interfaces/Account';
+import AccountOutputTable from './AccountOutputTable';
 
-export async function pull() {
-
-    const myHeaders: HeadersInit = new Headers();
-    myHeaders.append("Authorization", "Basic XXXX");
-
-    const requestOptions: RequestInit = {
-        method: "GET",
-        headers: myHeaders
-    };
-
-    try {
-        const response = await fetch("http://localhost:8080/account/s@s", requestOptions);
-        const result = await response.text();
-        console.log(result)
-    } catch (error) {
-        console.error(error);
-    };
-
+interface Props {
+    auth64: string,
+    onError: (error: string) => void,
+    id: string
 }
 
-const GetAccount: React.FC = () => {
-    return (
-        <div><button className='btn btn-primary' onClick={() => pull()}>Get Account</button></div>
-    )
+const GetAccount: React.FC<Props> = ({ auth64, onError, id }: Props) => {
+    const [accounts, setAccounts] = useState<Account[]>([]);
+
+    const requestMethod = "GET";
+    const uri = `account/${id}`;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data: Account[] = await FetchServerData({ auth64, requestMethod, uri });
+                setAccounts(data);
+            } catch (error: any) {
+                console.error('Error fetching accounts:', error);
+                onError(error.message);
+            }
+        }
+
+        fetchData();
+    }, []); // Empty dependency array ensures that this effect runs only once
+
+    return accounts.length > 0 ? <AccountOutputTable accounts={accounts} /> : null;
 }
 
-export default GetAccount
+export default GetAccount;
