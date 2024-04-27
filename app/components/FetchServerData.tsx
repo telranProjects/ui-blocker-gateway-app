@@ -29,7 +29,6 @@ const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
 
             response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
 
-            console.log("====================RESPONSE===============================")
             console.log(response);
 
             if (response.status === 401) {
@@ -37,7 +36,7 @@ const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
             };
 
             if (!response.ok) {
-                throw new Error('Failed to fetch services');
+                throw new Error('Failed to fetch');
             }
 
             const jsonData = await response.json();

@@ -2,7 +2,7 @@ import React from "react";
 import { Account } from "../../interfaces/Account";
 
 interface Props {
-    accounts: Account[];
+    accounts: Account;
 }
 
 const AccountsOutputTable: React.FC<Props> = ({accounts}) => {
@@ -18,12 +18,12 @@ const AccountsOutputTable: React.FC<Props> = ({accounts}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {accounts.length > 0 && accounts.map((a) => (
+                    {accounts && (
                         <tr>
-                            <td>{a.username}</td>
-                            {a.roles.map(r => <td>{r}</td>)}
+                            <td>{accounts.username}</td>
+                            {accounts.roles.map(r => <td>{r}</td>)}
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </>

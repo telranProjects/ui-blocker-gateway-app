@@ -10,7 +10,7 @@ const InputAreaService: React.FC<Props> = ({onInputAreaChange}: Props) => {
           style={{ height: '16em', whiteSpace: 'pre-line' }}
           defaultValue={`{
     "IP":
-            "IP_number"
+            "IP_number",
     "webService": 
             "web_service_name",
     "timestamp": 

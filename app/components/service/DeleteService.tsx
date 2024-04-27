@@ -11,7 +11,7 @@ interface Props {
 }
 
 const DeleteService: React.FC<Props> = ({ auth64, onError, id }: Props) => {
-    const [services, setServices] = useState<Service[]>([]);
+    const [service, setService] = useState<Service>();
 
     const requestMethod = "DELETE";
     const uri = `bo/service/${id}`;
@@ -19,18 +19,18 @@ const DeleteService: React.FC<Props> = ({ auth64, onError, id }: Props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data: Service[] = await FetchServerData({ auth64, requestMethod, uri });
-                setServices(data);
-            } catch (error: any) {
+                const data: Service = await FetchServerData({ auth64, requestMethod, uri });
+                setService(data);
+            } catch (error: unknown) {
                 console.error('Error fetching services:', error);
-                onError(error.message);
+                onError('An error occurred');
             }
         }
 
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return services.length > 0 ? <ServicesOutputTable services={services} /> : null;
+    return service ? <ServicesOutputTable services={service} /> : null;
 }
 
 export default DeleteService;

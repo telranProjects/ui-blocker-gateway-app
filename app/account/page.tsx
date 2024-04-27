@@ -22,7 +22,7 @@ const AccountsPage = () => {
   
   return (
     <main>
-      <div className="p-5 text-yellow-500">Services Page</div>
+      <div className="p-5 text-yellow-500">Accounts Page</div>
 
       <div className='p-5 w-1/4'>
         <LoginPassword
@@ -35,7 +35,7 @@ const AccountsPage = () => {
 
 {/* get Entity part */}
       <div className="mockup-window border border-base-300">
-        <button className='btn btn-secondary w-1/4' onClick={handleGetEntity}>
+        <button className='btn btn-primary w-1/4' onClick={handleGetEntity}>
           Get Account
         </button>
     <InputString onInputStringChange={handleInputStringChange}/>

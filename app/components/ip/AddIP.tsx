@@ -11,7 +11,7 @@ interface Props {
 }
 
 const AddIP: React.FC<Props> = ({auth64, onError, entity}: Props) => {
-    const [IPs, setIPs] = useState<IP[]>([]);
+    const [IPs, setIPs] = useState<IP>();
 
     const requestMethod = "POST";
     const uri = "bo/ip";
@@ -19,7 +19,7 @@ const AddIP: React.FC<Props> = ({auth64, onError, entity}: Props) => {
     useEffect(() => {
         const fetchData = async () => {
             try{
-            const data: IP[] = await FetchServerData({auth64, requestMethod, uri, entity});
+            const data: IP = await FetchServerData({auth64, requestMethod, uri, entity});
             setIPs(data);
         } catch (error: any) {
             console.error('Error fetching IPs:', error);
@@ -31,7 +31,7 @@ const AddIP: React.FC<Props> = ({auth64, onError, entity}: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return IPs.length > 0 ? <IPsOutputTable IPs={IPs} /> : null;
+    return IPs ? <IPsOutputTable IPs={IPs} /> : null;
 }
 
 export default AddIP;

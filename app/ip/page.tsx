@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Link from "next/link";
-import GetAllIPs from '../components/ip/GetAllIps';
+import GetAllIPs from '../components/ip/GetAllIPs';
 import AddIP from '../components/ip/AddIP';
 import DeleteIP from '../components/ip/DeleteIP';
 import LoginPassword from '../components/LoginPassword';

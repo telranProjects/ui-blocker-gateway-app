@@ -11,7 +11,7 @@ interface Props {
 }
 
 const GetAccount: React.FC<Props> = ({ auth64, onError, id }: Props) => {
-    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [accounts, setAccounts] = useState<Account>();
 
     const requestMethod = "GET";
     const uri = `account/${id}`;
@@ -19,7 +19,7 @@ const GetAccount: React.FC<Props> = ({ auth64, onError, id }: Props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data: Account[] = await FetchServerData({ auth64, requestMethod, uri });
+                const data: Account = await FetchServerData({ auth64, requestMethod, uri });
                 setAccounts(data);
             } catch (error: any) {
                 console.error('Error fetching accounts:', error);
@@ -30,7 +30,8 @@ const GetAccount: React.FC<Props> = ({ auth64, onError, id }: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return accounts.length > 0 ? <AccountsOutputTable accounts={accounts} /> : null;
+
+    return accounts ? <AccountsOutputTable accounts={accounts} /> : null;
 }
 
 export default GetAccount;
