@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import FetchServerData from '../FetchServerData';
 import { Account } from '../../interfaces/Account';
-import AccountOutputTable from './AccountOutputTable';
+import AccountsOutputTable from './AccountsOutputTable';
 
 interface Props {
     auth64: string,
@@ -30,7 +30,7 @@ const GetAccount: React.FC<Props> = ({ auth64, onError, id }: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return accounts.length > 0 ? <AccountOutputTable accounts={accounts} /> : null;
+    return accounts.length > 0 ? <AccountsOutputTable accounts={accounts} /> : null;
 }
 
 export default GetAccount;

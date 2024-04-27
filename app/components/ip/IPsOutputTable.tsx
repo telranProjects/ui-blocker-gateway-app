@@ -5,7 +5,7 @@ interface Props {
     IPs: (IP[]);
 }
 
-const IPOutputTable: React.FC<Props> = ({ IPs }) => {
+const IPsOutputTable: React.FC<Props> = ({ IPs }) => {
     return (
         <>
             <h1>IPs-Services-Timestamps</h1>
@@ -19,7 +19,7 @@ const IPOutputTable: React.FC<Props> = ({ IPs }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {IPs.map((ip) => (
+                    {IPs.length > 0 && IPs.map((ip) => (
                         <tr>
                             <td>{ip.IP}</td>
                             <td>{ip.webService}</td>
@@ -32,4 +32,4 @@ const IPOutputTable: React.FC<Props> = ({ IPs }) => {
     );
 };
 
-export default IPOutputTable;
+export default IPsOutputTable;

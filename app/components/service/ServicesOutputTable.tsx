@@ -19,7 +19,7 @@ const ServicesOutputTable: React.FC<Props> = ({services}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {services && services.map((s) => (
+                    {services.length > 0 && services.map((s) => (
                         <tr>
                             <td>{s.webService}</td>
                             {s.emails.map(e => <td>{e}</td>)}

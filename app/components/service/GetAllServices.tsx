@@ -30,7 +30,7 @@ const GetAllServices: React.FC<Props> = ({auth64, onError}: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return  services ? <ServicesOutputTable services={services} /> : null;
+    return  services.length > 0 ? <ServicesOutputTable services={services} /> : null;
 }
 
 export default GetAllServices;
