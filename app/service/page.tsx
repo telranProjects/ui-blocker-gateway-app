@@ -5,32 +5,29 @@ import GetAllServices from '../components/service/GetAllServices';
 import AddService from '../components/service/AddService';
 import DeleteService from '../components/service/DeleteService';
 import LoginPassword from '../components/LoginPassword';
-import useServicePage from '../hooks/useServicePage'; // Custom hook for state management
+import useJointPage from '../hooks/useJointPage'; // Custom hook for state management
 import { ErrorMessage } from '../components/errorHandler';
-import InputTextArea from '../components/service/InputTextArea';
+import InputAreaService from '../components/service/InputAreaService';
+import InputString from '../components/InputString';
 
 const ServicesPage = () => {
   const {
-    addService,
-    showServices,
-    deleteService,
+    addEntity,
+    showEntities,
+    deleteEntity,
     auth64,
     error,
-    inputTextArea,
+    inputArea,
+    inputString,
     handleLoginChange,
     handlePasswordChange,
-    handleAddService,
-    handleShowServices,
-    handleDeleteService,
+    handleAddEntity,
+    handleShowEntities,
+    handleDeleteEntity,
     handleError,
-    handleInputTextChange
-  } = useServicePage(); // Using the custom hook
-
-  const [deleteInputValue, setDeleteInputValue] = useState('');
-  const handleDeleteInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDeleteInputValue(event.target.value);
-  };
-
+    handleInputAreaChange,
+    handleInputStringChange
+  } = useJointPage(); // Using the custom hook
   
   return (
     <main>
@@ -45,33 +42,32 @@ const ServicesPage = () => {
 
       {error && <ErrorMessage message={error} />}
 
-{/* add service part */}
+{/* add Entity part */}
       <div className="mockup-window border border-base-300">
-        <button className='btn btn-success w-1/4' onClick={handleAddService}>
-          Add Service
+        <button className='btn btn-success w-1/4' onClick={handleAddEntity}>
+          Add S1ervice
         </button>
-<InputTextArea onInputTextChange={handleInputTextChange}/>        
+<InputAreaService onInputAreaChange={handleInputAreaChange}/>        
 
-        {addService && <AddService auth64={auth64} onError={handleError} entity={inputTextArea}/>}
+        {addEntity && <AddService auth64={auth64} onError={handleError} entity={inputArea}/>}
       </div>
 
-{/* get all services part */}
+{/* get all Entities part */}
       <div className="mockup-window border border-base-300">
-        <button className='btn btn-primary w-1/4' onClick={handleShowServices}>
-          Get All Services
+        <button className='btn btn-primary w-1/4' onClick={handleShowEntities}>
+          Get All S1ervices
         </button>
-        {showServices && <GetAllServices auth64={auth64} onError={handleError}/>}
+        {showEntities && <GetAllServices auth64={auth64} onError={handleError}/>}
       </div>
 
-{/* delete service part */}
+{/* delete Entity part */}
       <div className="mockup-window border border-base-300">
-        <button className='btn btn-secondary w-1/4' onClick={handleDeleteService}>
-          Delete Service
+        <button className='btn btn-secondary w-1/4' onClick={handleDeleteEntity}>
+          Delete S1ervice
         </button>
-        <input type="text" placeholder="Type service name to delete" className="input input-bordered w-1/4" 
-        value={deleteInputValue} onChange={handleDeleteInputChange}/>
+    <InputString onInputStringChange={handleInputStringChange}/>
 
-        {deleteService && <DeleteService auth64={auth64} onError={handleError} id={deleteInputValue}/>}
+        {deleteEntity && <DeleteService auth64={auth64} onError={handleError} id={inputString}/>}
       </div>
 
       <div className="p-5 text-yellow-300">

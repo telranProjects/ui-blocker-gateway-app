@@ -1,10 +1,10 @@
 import React from 'react'
 
 interface Props {
-    onInputTextChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    onInputAreaChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const InputTextArea: React.FC<Props> = ({onInputTextChange}: Props) => {
+const InputAreaService: React.FC<Props> = ({onInputAreaChange}: Props) => {
   return (
     <textarea className="textarea textarea-bordered w-1/4"
           style={{ height: '16em', whiteSpace: 'pre-line' }}
@@ -16,10 +16,10 @@ const InputTextArea: React.FC<Props> = ({onInputTextChange}: Props) => {
             "e2@e2.com"
     ]
 }`}
-onChange={onInputTextChange}
+onChange={onInputAreaChange}
  />
 
   )
 }
 
-export default InputTextArea
+export default InputAreaService

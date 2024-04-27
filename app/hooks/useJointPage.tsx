@@ -2,15 +2,16 @@
 import { useState } from 'react';
 import Credentials64 from '../components/Credentials64';
 
-const useServicePage = () => {
-  const [addService, setAddServices] = useState(false);
-  const [showServices, setShowServices] = useState(false);
-  const [deleteService, setDeleteService] = useState(false);
+const useJointPage = () => {
+  const [addEntity, setAddEntity] = useState(false);
+  const [showEntities, setShowEntities] = useState(false);
+  const [deleteEntity, setDeleteEntity] = useState(false);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [auth64, setAuth64] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [inputTextArea, setInputTextArea] = useState('');
+  const [inputArea, setInputArea] = useState('');
+  const [inputString, setInputString] = useState('');
 
   const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value);
@@ -20,52 +21,58 @@ const useServicePage = () => {
     setPassword(event.target.value);
   };
 
-  const handleInputTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputTextArea(event.target.value);
+  const handleInputAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputArea(event.target.value);
   }
+
+  const handleInputStringChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputString(event.target.value);
+  };
 
   const handleError = (errorMessage: string | null) => {
     setError(errorMessage);
   };
 
-  const handleAddService = () => {
+  const handleAddEntity = () => {
     const credentials64 = Credentials64({ login, password });
     setAuth64(credentials64);
-    setAddServices(prev => !prev);
+    setAddEntity(prev => !prev);
     setError(null); // Clear any previous errors
   };
   
-  const handleShowServices = () => {
+  const handleShowEntities = () => {
     const credentials64 = Credentials64({ login, password });
     setAuth64(credentials64);    
-    setShowServices(prev => !prev);
+    setShowEntities(prev => !prev);
     setError(null); // Clear any previous errors
   };
   
-  const handleDeleteService = () => {
+  const handleDeleteEntity = () => {
     const credentials64 = Credentials64({ login, password });
     setAuth64(credentials64);
-    setDeleteService(prev => !prev);
+    setDeleteEntity(prev => !prev);
     setError(null); // Clear any previous errors
   };  
 
   return {
-    addService,
-    showServices,
-    deleteService,
+    addEntity,
+    showEntities,
+    deleteEntity,
     login,
     password,
     auth64,
     error,
-    inputTextArea,
+    inputArea,
+    inputString,
     handleLoginChange,
     handlePasswordChange,
-    handleAddService,
-    handleShowServices,
-    handleDeleteService,
+    handleAddEntity,
+    handleShowEntities,
+    handleDeleteEntity,
     handleError,
-    handleInputTextChange
+    handleInputAreaChange,
+    handleInputStringChange
   };
 };
 
-export default useServicePage;
+export default useJointPage;
