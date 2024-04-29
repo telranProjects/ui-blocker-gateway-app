@@ -1,5 +1,4 @@
 'use server';
-
 interface Props {
     auth64: string;
     requestMethod: string;
@@ -9,7 +8,7 @@ interface Props {
 
 let response: Response;
 
-export async function FetchServerData ({auth64, requestMethod, uri, entity}: Props): Promise<any>  {
+export default async function FetchServerData ({auth64, requestMethod, uri, entity}: Props): Promise<any>  {
         
         try {
             const myHeaders: HeadersInit = new Headers();

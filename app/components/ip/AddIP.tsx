@@ -31,7 +31,7 @@ const AddIP: React.FC<Props> = ({auth64, onError, entity}: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return IPs ? <IPsOutputTable IPs={IPs} /> : null;
+    return IPs ? <IPsOutputTable IPs={[IPs]} /> : null;
 }
 
 export default AddIP;

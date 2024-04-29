@@ -2,21 +2,10 @@ import React from "react";
 import { IP } from "../../interfaces/IP";
 
 interface Props {
-    IPs: (IP[] | IP);
+    IPs: IP[];
 }
 
-const IPsOutputTable: React.FC<Props> = ({ IPs }) => {
-
-    const renderRows = (ip: IP): JSX.Element => {
-        return <tr key={ip.IP}>
-            <td>{ip.IP}</td>
-            <td>{ip.webService}</td>
-            <td>{ip.timestamp}</td>
-        </tr>;
-    };
-
-    const rows = Array.isArray(IPs) ? IPs.map(renderRows) :
-        renderRows(IPs as IP);
+export default function IPsOutputTable ({ IPs }: Props): JSX.Element {
 
     return (
         <>
@@ -31,11 +20,13 @@ const IPsOutputTable: React.FC<Props> = ({ IPs }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows}
+                    {IPs.map(ip => (<tr key={ip.IP}>
+                        <td>{ip.IP}</td>
+                        <td>{ip.webService}</td>
+                        <td>{ip.timestamp}</td>
+                    </tr>))}
                 </tbody>
             </table>
         </>
     );
 };
-
-export default IPsOutputTable;

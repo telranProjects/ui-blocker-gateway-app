@@ -4,7 +4,7 @@ interface Props {
     services: Service[];
 }
 
-export function ServicesOutputTable({ services }: Props): JSX.Element {
+export default function ServicesOutputTable({ services }: Props): JSX.Element {
 
     return (
         <>

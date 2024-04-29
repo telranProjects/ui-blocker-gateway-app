@@ -30,7 +30,7 @@ const DeleteIP: React.FC<Props> = ({ auth64, onError, id }: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return IPs ? <IPsOutputTable IPs={IPs} /> : null;
+    return IPs ? <IPsOutputTable IPs={[IPs]} /> : null;
 }
 
 export default DeleteIP;

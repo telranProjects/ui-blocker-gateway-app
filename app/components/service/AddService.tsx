@@ -31,7 +31,7 @@ const AddService: React.FC<Props> = ({auth64, onError, entity}: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return service ? <ServicesOutputTable services={service} /> : null;
+    return service ? <ServicesOutputTable services={[service]} /> : null;
 }
 
 export default AddService;
