@@ -6,8 +6,6 @@ interface Props {
     entity?: string;
 }
 
-let response: Response;
-
 export default async function FetchServerData ({auth64, requestMethod, uri, entity}: Props): Promise<any>  {
         
         try {
@@ -26,7 +24,7 @@ export default async function FetchServerData ({auth64, requestMethod, uri, enti
                 requestOptions.body = entity;
             }
 
-            response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
+            const response: Response = await fetch(`http://localhost:8080/${uri}`, requestOptions);
 
             console.log(response);
 
