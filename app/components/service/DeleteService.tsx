@@ -30,7 +30,7 @@ const DeleteService: React.FC<Props> = ({ auth64, onError, id }: Props) => {
         fetchData();
     }, []); // Empty dependency array ensures that this effect runs only once
 
-    return service ? <ServicesOutputTable services={service} /> : null;
+    return service ? <ServicesOutputTable services={[service]} /> : null;
 }
 
 export default DeleteService;
