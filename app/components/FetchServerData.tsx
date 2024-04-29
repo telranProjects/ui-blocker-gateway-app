@@ -9,7 +9,7 @@ interface Props {
 
 let response: Response;
 
-const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
+export async function FetchServerData ({auth64, requestMethod, uri, entity}: Props): Promise<any>  {
         
         try {
             const myHeaders: HeadersInit = new Headers();
@@ -50,5 +50,3 @@ const FetchServerData = async ({auth64, requestMethod, uri, entity}: Props) => {
         }        
     };  
 
-
-export default FetchServerData
